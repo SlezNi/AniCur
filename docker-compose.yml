@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: animewiki-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: anime_wiki
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - animewiki_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d anime_wiki"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  animewiki_postgres_data:

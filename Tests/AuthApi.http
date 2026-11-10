@@ -1,0 +1,29 @@
+# VS Code REST Client / Rider .http запити
+@baseUrl = http://localhost:5080
+@token = ВСТАВИТИ_ТОКЕН_З_REGISTER_АБО_LOGIN
+
+### 1) Реєстрація (змініть email або ім'я для повторних запусків)
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "animefan",
+  "email": "fan@example.com",
+  "password": "StrongPass123!"
+}
+
+### 2) Вхід
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "emailOrUsername": "animefan",
+  "password": "StrongPass123!"
+}
+
+### 3) Профіль — токен з попереднього запиту
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### 4) Контроль: без токена має повернути 401
+GET {{baseUrl}}/api/auth/me
